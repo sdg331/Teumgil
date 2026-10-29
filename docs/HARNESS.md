@@ -4,7 +4,7 @@ MD가 안내하는 작업을 실제 파일·명령·검사 결과와 연결한�
 
 ## 현재 실행 범위
 
-설정은 [.node-version](../.node-version), [package.json](../package.json), [잠금 파일](../package-lock.json)을 따른다. 앱의 타입 검사·빌드·권한 테스트는 아직 없다.
+설정은 [.node-version](../.node-version), [package.json](../package.json), [잠금 파일](../package-lock.json)을 따른다. 타입·린트·인증·장바구니·의견·첨부·역할별 처리 테스트를 포함한다. 서버 실행과 PostgreSQL 테스트 연결은 [개발 안내](DEVELOPMENT.md)에 있다.
 
 ```sh
 npm ci --ignore-scripts
@@ -17,12 +17,25 @@ npm run verify
 | --- | --- | --- |
 | `npm run check:docs` | 내부 파일 링크, 코드 블록, JSON 예시, 앱 AI 안내의 출력 예시 | 외부 링크·전체 Markdown 문법·앵커, 설계의 타당성 |
 | `npm run check:ids` | 명세 ID 할당·정의·참조·화면 소속·목록 링크와 폐기 기록 | ID 의미의 재할당·대장 이력 삭제, 실제 데이터 ID·UI 동작 |
-| `npm test` | 검증기·평가 CLI·문서 검사기의 정상·오류 동작 | 실제 앱·실제 AI 성능 |
+| `npm run typecheck` / `npm run lint` | 서비스 타입과 정적 규칙 | 실제 화면·저장·권한 동작 |
+| `npm run build` | Next.js 배포 빌드 | 배포 환경의 연결·운영 성공 |
+| `npm test` | 기존 도구·인증·시장·장바구니·의견·첨부·권한·동시 저장·롤백 | 실제 브라우저·현장 자료·실제 AI 성능 |
+| `npm run test:e2e` | 실제 서버의 독립 역할 세션·화면·재시도·접근성·반응형 | 물리적 모바일 기기·배포·현장 효과 |
 | `npm run eval:fixtures` | 사람이 작성한 가상 기준 출력과 사례별 조건 | 실제 모델의 응답 품질 |
 | `npm run eval:fingerprints` | 현재 프롬프트·스키마·평가 데이터의 SHA-256 | 어떤 모델이 호출됐는지 |
 | `npm run eval:outputs -- .harness/predictions.json` | 가져온 출력의 버전·완전성·구조·사례 조건 | 의미 전체의 사실성·선언된 모델명 진위 |
 
-기본 검증은 문서 검사 → 명세 ID 검사 → 도구 테스트 → 기준 출력 검사 순서다. 실패 단계는 0이 아닌 종료 코드를 반환한다. 실패한 검사를 통과로 보고하지 않는다. ID를 바꿀 때는 [관리 규칙](ID_POLICY.md)과 [대장](spec-ids.json)을 함께 확인한다.
+기본 검증은 문서 검사 → 명세 ID 검사 → 타입 → 린트 → 테스트 → 기준 출력 검사 순서다. 실패 단계는 0이 아닌 종료 코드를 반환한다. 실패한 검사를 통과로 보고하지 않는다. ID를 바꿀 때는 [관리 규칙](ID_POLICY.md)과 [대장](spec-ids.json)을 함께 확인한다.
+
+브라우저 검사는 기본 verify와 분리한다. `demo:init`·개발 서버·Playwright Chromium을 먼저 준비한다. 스크린샷·trace·가상 계정은 `.harness/`에서 관리한다. 코드 검증과 실제 화면 검증의 대응은 [MVP 인수 기록](MVP_VERIFICATION.md)에 있다. 모션·접근성은 자동 검사 외에도 실제 캡처와 키보드 흐름을 함께 확인한다.
+
+[브라우저 실행기](../scripts/browser-tests.mjs)는 실행마다 결과 경로를 만든다. Windows에서는 작업 폴더의 활성 trace 쓰기가 EBUSY로 실패하는 현상을 재현해, OS 임시 폴더에 기록한 뒤 종료된 결과를 `.harness/playwright/runs/`로 복사한다. 복사 후 실행기가 만든 임시 폴더만 제거한다. 최근 결과 위치는 `.harness/playwright/last-run.json`, HTML 보고서는 `npm run test:e2e:report`로 확인한다. 검사 실패도 종료 코드와 근거를 보존하며 통과로 바꾸지 않는다.
+
+## 화면 참고 도구
+
+`npm run design:board`는 연구 보드를 loopback 주소 127.0.0.1:4175에서 연다. 보드 HTML·참고 목록·캡처 PNG만 허용하며 환경 파일이나 앱 소스를 제공하지 않는다. `npm run design:capture`는 고정된 공개 출처를 Chromium으로 수집하고 성공·실패·URL·시각·범위를 로컬에 기록한다. 캡처 권리는 원 게시자에게 있으며 제품 에셋으로 배포하지 않는다.
+
+스크린샷을 가져오려면 Playwright Chromium이 필요하다. 새 환경에서는 `npx playwright install chromium`을 실행한다. 이 도구는 기본 verify나 CI에서 외부 사이트를 호출하지 않는다. 수집 결과·보드의 화면/접근성 검사는 실제 제품 UX·저장·권한의 검증과 다르다. 설계와 사용법은 [화면 연구](design/SCREEN_REFERENCES.md), Astra 실행 요청은 [구현 프롬프트](prompts/ASTRA_BUILD.md)에 있다.
 
 ## 프로젝트 스킬과 유지보수
 
@@ -86,6 +99,6 @@ npm run verify
 
 ## 앱 구현과 CI
 
-[Verify 워크플로](../.github/workflows/verify.yml)는 Ubuntu·Windows에서 기본 검증을 실행하도록 작성돼 있다. 실제 GitHub 실행 여부는 원격 결과로 별도 확인한다.
+[Verify 워크플로](../.github/workflows/verify.yml)는 Ubuntu·Windows의 기본 검증·빌드와 별도 PostgreSQL 서비스 연결 검사를 구성한다. 실제 GitHub 실행 여부는 원격 결과로 별도 확인한다.
 
-앱을 구현하면 선택한 스택의 타입 검사·린트·빌드, 제품 명세 A1–A7, 데이터 계약의 무권한·저장 실패·공개 범위를 검증에 연결한다. 화면 사용성, 실제 모델 성능과 실제 현장 효과는 각각 다른 근거를 남긴다.
+시장·계정 API 검사에 장바구니·의견·역할별 저장·공개 범위 검사와 브라우저 여정을 추가했다. 제품 명세 A1–A7 및 화면별 조건과의 대응은 [인수 기록](MVP_VERIFICATION.md)에 있다. 화면 사용성, 실제 모델 성능과 실제 현장 효과는 각각 다른 근거를 남긴다.

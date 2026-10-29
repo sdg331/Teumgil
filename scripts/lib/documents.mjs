@@ -1,7 +1,7 @@
 import { existsSync, lstatSync, readFileSync, readdirSync, realpathSync } from 'node:fs';
 import { isAbsolute, join, relative, resolve } from 'node:path';
 
-const excludedDirectories = new Set(['.git', 'node_modules', '.harness', '.agents', '.codex']);
+const excludedDirectories = new Set(['.git', 'node_modules', '.harness', '.agents', '.codex', '.next', 'out']);
 
 export function checkDocuments(root, { additionalDirectories = [] } = {}) {
   const errors = [];

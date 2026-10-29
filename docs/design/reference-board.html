@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>틈길 · 화면 참고 보드</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#1d302c;background:#fffdf8;line-height:1.65;--green:#126b5b;--line:#d3dcd7}
+*{box-sizing:border-box}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}a{color:var(--green);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}button:focus-visible,a:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.skip{position:absolute;top:-80px;left:16px;background:white;padding:10px;z-index:2}.skip:focus{top:8px}header{max-width:1380px;margin:auto;padding:32px 32px 24px;border-bottom:1px solid var(--line)}header p{margin:4px 0 0;color:#52645e;font-size:15px}h1{font-size:26px;letter-spacing:-.7px;margin:0}h2{font-size:28px;letter-spacing:-.6px;line-height:1.35;margin:0 0 8px}h3{font-size:17px;margin:0 0 10px}p{margin:0 0 16px}.workspace{display:grid;grid-template-columns:220px minmax(0,1fr);max-width:1380px;margin:auto}nav{padding:24px 16px 32px 24px;border-right:1px solid var(--line);align-self:start;position:sticky;top:0}nav>p{font-size:13px;color:#52645e;margin:0 10px 10px}nav button{display:flex;gap:10px;width:100%;border:0;border-radius:8px;text-align:left;align-items:baseline;padding:11px 10px;background:transparent;color:#354c45;font-size:14px;line-height:1.5;min-height:44px}nav button span{font-variant-numeric:tabular-nums;color:#52645e;font-size:12px}nav button[aria-current=true]{background:#e5f2ed;color:#0e584b;font-weight:700}nav button:hover{background:#edf2ec}
+main{padding:32px;min-width:0}.screen-id{font-size:13px;color:#52645e;margin-bottom:8px}.goal{color:#52645e;margin-bottom:24px}.columns{display:grid;grid-template-columns:minmax(280px,1.1fr) minmax(260px,1fr);gap:32px}.references,.proposal{min-width:0}.section-label{font-size:12px;letter-spacing:1px;color:#52645e;margin-bottom:12px}.source-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}.source-tabs button{min-height:44px;padding:7px 12px;border:1px solid #a8b9af;border-radius:7px;background:white;color:#354c45;font-size:13px}.source-tabs button[aria-pressed=true]{background:#126b5b;border-color:#126b5b;color:white}.image-stage{background:#eef1ec;border:1px solid var(--line);border-radius:12px;min-height:300px;display:flex;align-items:flex-start;justify-content:center;padding:16px}.image-stage a{display:block;max-width:100%}.image-stage img{max-width:100%;max-height:710px;display:block;object-fit:contain;background:white}.image-stage p{padding:24px;color:#52645e}figure{margin:0}figcaption{font-size:12px;color:#52645e;padding-top:10px;overflow-wrap:anywhere}figcaption strong{display:block;color:#354c45;margin-bottom:3px}.observed{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;font-size:14px}.observed p{color:#52645e}.proposal{border-top:3px solid var(--green);padding-top:16px}.flow{list-style:none;padding:0;margin:0 0 24px;counter-reset:step}.flow li{counter-increment:step;display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}.flow li:before{content:counter(step,decimal-leading-zero);font-size:12px;color:#52645e;font-variant-numeric:tabular-nums}.detail{margin-bottom:20px}.detail p{font-size:14px;color:#354c45}.detail h3{font-size:14px;margin-bottom:5px}.note{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:#52645e}.status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}footer{max-width:1380px;margin:auto;border-top:1px solid var(--line);padding:20px 32px;font-size:12px;color:#52645e}code{overflow-wrap:anywhere}#heading:focus{outline:none}
+@media(max-width:1050px){.columns{grid-template-columns:1fr}.image-stage img{max-height:560px}.proposal{margin-top:8px}}
+@media(max-width:650px){header{padding:24px 20px 20px}h1{font-size:22px}.workspace{display:block}nav{position:static;border-right:0;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;gap:6px;overflow:auto}nav>p{display:none}nav button{flex:0 0 auto;width:auto;gap:7px;padding:9px 10px;white-space:nowrap}main{padding:24px 20px}.columns{gap:24px}h2{font-size:25px}.image-stage{padding:10px;min-height:200px}.image-stage img{max-height:560px}footer{padding:20px}.source-tabs button{flex-grow:1}}
+</style>
+</head>
+<body>
+<a href="#heading" class="skip">선택한 화면으로 이동</a>
+<header><h1>틈길 · 화면 참고 보드</h1><p>공개 화면의 근거와 틈길의 구성 제안 · 2026.10.29</p></header>
+<div class="workspace">
+<nav aria-label="화면 선택"><p>화면 13개</p><div id="screen-links" style="display:contents"></div></nav>
+<main id="content"><p>참고 자료를 불러오는 중입니다.</p></main>
+</div>
+<p id="status" role="status" class="status"></p>
+<footer>내부 설계 검토 자료입니다. 캡처의 권리는 원 게시자에게 있으며 제품 에셋으로 사용하지 않습니다. 실제 앱 구현·사용성 검증 결과가 아닙니다.</footer>
+<script type="module">
+const main = document.querySelector('main');
+const escape = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+try {
+ const [data,captures]=await Promise.all([fetch('/references.json').then(r=>{if(!r.ok)throw Error('설계 자료를 읽지 못했습니다.');return r.json();}),fetch('/capture-index.json').then(r=>r.json())]);
+ const nav=document.querySelector('#screen-links');
+ function renderScreen(id, moveFocus=false){
+  const s=data.screens.find(s=>s.id===id)??data.screens[0];
+  for(const b of nav.querySelectorAll('button'))b.setAttribute('aria-current',String(b.dataset.id===s.id));
+  main.innerHTML=`<div class="screen-id">${escape(s.id)} · 틈길 화면 설계</div><h2 id="heading" tabindex="-1">${escape(s.title)}</h2><p class="goal">${escape(s.goal)}</p><div class="columns"><section class="references" aria-label="공개 레퍼런스"><div class="section-label">공개 레퍼런스</div><div class="source-tabs" role="group" aria-label="참고 출처 선택"></div><figure><div class="image-stage"></div><figcaption></figcaption></figure><div class="observed"><h3>이 자료에서 확인한 패턴</h3><p id="observation"></p><a id="source-link" target="_blank" rel="noopener noreferrer">공식 출처 열기 ↗</a></div></section><section class="proposal" aria-label="틈길의 구성 제안"><div class="section-label">틈길의 구성 제안 · 구현 전</div><h3>화면에서 읽는 순서</h3><ol class="flow">${s.layout.split(' → ').map(t=>`<li>${escape(t)}</li>`).join('')}</ol><div class="detail"><h3>연결할 모션</h3><p>${escape(s.motion)}</p></div><div class="detail"><h3>함께 설계할 상태</h3><p>${escape(s.states)}</p></div><div class="detail"><h3>구현에서 지킬 경계</h3><p>${escape(s.boundary)}</p></div><p class="note">배치·모션 값은 틈길의 제안입니다. 상세 행동은 화면 명세, 공개·권한은 데이터 계약을 따릅니다.</p></section></div>`;
+  function renderSource(id){
+   const ref=data.sources.find(r=>r.id===id);
+   const capture=captures.references.find(c=>c.id===id);
+   const shot=capture?.shots?.[ref.preferredShot??0];
+   const stage=main.querySelector('.image-stage');stage.replaceChildren();
+   if(shot){const a=document.createElement('a');a.href='/'+shot.file;a.target='_blank';a.rel='noopener';a.setAttribute('aria-label',ref.title+' 캡처 크게 보기');const img=document.createElement('img');img.src=a.href;img.alt=ref.title+' · '+ref.kind;img.addEventListener('error',()=>{stage.textContent='로컬 캡처가 없습니다. 공식 출처에서 확인하거나 design:capture를 실행하세요.';});a.append(img);stage.append(a);}
+   else{const p=document.createElement('p');p.textContent='로컬 캡처가 없습니다. 공식 출처를 열거나 npm run design:capture로 수집하세요.';stage.append(p);}
+   const caption=main.querySelector('figcaption');caption.innerHTML=`<strong>${escape(ref.title)}</strong>${escape(ref.kind)}<br>${capture?.status==='captured'?escape(capture.capturedAt.slice(0,19).replace('T',' '))+' UTC · '+escape(shot?.scope??''): '캡처 미확인'}`;
+   main.querySelector('#observation').textContent=ref.observed;
+   main.querySelector('#source-link').href=ref.url;
+   for(const b of main.querySelectorAll('.source-tabs button'))b.setAttribute('aria-pressed',String(b.dataset.id===id));
+  }
+  for(const id of s.refs){const ref=data.sources.find(r=>r.id===id);const b=document.createElement('button');b.type='button';b.dataset.id=id;b.textContent=ref.title;b.addEventListener('click',()=>renderSource(id));main.querySelector('.source-tabs').append(b);}
+  renderSource(s.refs[0]);
+  history.replaceState(null,'','#'+s.id);
+  document.querySelector('#status').textContent=s.id+' '+s.title+' 선택됨';
+  if(moveFocus)main.querySelector('#heading').focus();
+ }
+ for(const screen of data.screens){const b=document.createElement('button');b.type='button';b.dataset.id=screen.id;b.innerHTML=`<span>${escape(screen.id)}</span>${escape(screen.title)}`;b.addEventListener('click',()=>renderScreen(screen.id,true));nav.append(b);}
+ renderScreen(location.hash.slice(1));
+}catch(error){main.textContent=error.message+' npm run design:board로 실행했는지 확인하세요.';}
+</script>
+</body>
+</html>

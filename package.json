@@ -2,17 +2,68 @@
   "name": "teumgil",
   "version": "0.0.0",
   "private": true,
-  "description": "틈길 개발 하네스: 문서 검증과 의견 초안 출력 평가",
+  "description": "틈길 서비스 MVP와 개발 검증 도구",
   "type": "module",
-  "engines": { "node": ">=24 <25" },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
-    "verify": "npm run check:docs && npm run check:ids && npm test && npm run eval:fixtures",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "next typegen && tsc --noEmit",
+    "lint": "eslint src tests/app e2e playwright.config.ts scripts/browser-tests.mjs scripts/local-postgres.mjs scripts/admin.mjs scripts/demo.mjs scripts/setup-local.mjs scripts/database.mjs scripts/design-board.mjs scripts/capture-design-references.mjs next.config.ts drizzle.config.ts",
+    "setup:local": "node scripts/setup-local.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --env-file-if-exists=.env.local scripts/database.mjs migrate",
+    "db:seed": "node --env-file-if-exists=.env.local scripts/database.mjs seed",
+    "verify": "npm run check:docs && npm run check:ids && npm run typecheck && npm run lint && npm test && npm run eval:fixtures",
     "check:docs": "node scripts/check-docs.mjs",
     "check:ids": "node scripts/check-spec-ids.mjs",
     "test": "node --test",
     "eval:fixtures": "node scripts/evaluate-opinions.mjs --fixtures",
     "eval:outputs": "node scripts/evaluate-opinions.mjs --file",
-    "eval:fingerprints": "node scripts/evaluate-opinions.mjs --fingerprints"
+    "eval:fingerprints": "node scripts/evaluate-opinions.mjs --fingerprints",
+    "design:capture": "node scripts/capture-design-references.mjs",
+    "design:board": "node scripts/design-board.mjs",
+    "demo:init": "node --env-file-if-exists=.env.local scripts/demo.mjs init",
+    "demo:reset": "node --env-file-if-exists=.env.local scripts/demo.mjs reset --confirm-demo-reset",
+    "admin": "node --env-file-if-exists=.env.local scripts/admin.mjs",
+    "test:e2e": "node scripts/browser-tests.mjs",
+    "test:e2e:report": "playwright show-report .harness/playwright/report",
+    "db:local:start": "node scripts/local-postgres.mjs start",
+    "db:local:stop": "node scripts/local-postgres.mjs stop",
+    "db:local:status": "node scripts/local-postgres.mjs status"
   },
-  "devDependencies": { "ajv": "8.20.0" }
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "ajv": "8.20.0",
+    "drizzle-kit": "0.31.11",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.3",
+    "typescript": "6.0.3"
+  },
+  "overrides": {
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.12"
+    }
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "1.7.14",
+    "@electric-sql/pglite": "0.5.13",
+    "better-auth": "1.7.14",
+    "drizzle-orm": "0.45.4",
+    "lucide-react": "1.63.0",
+    "motion": "14.7.1",
+    "next": "16.4.3",
+    "pg": "8.23.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5"
+  }
 }

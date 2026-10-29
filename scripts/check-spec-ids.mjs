@@ -27,7 +27,7 @@ try {
   const registry = JSON.parse(readFileSync(join(root, 'docs', 'spec-ids.json'), 'utf8'));
   const result = checkSpecIds(registry, documents);
   for (const error of result.errors) console.error(error);
-  console.log('Specification IDs: ' + result.active + ' active, ' + result.retired + ' retired; ' + result.screens + ' screens, ' + result.conditions + ' future acceptance conditions');
+  console.log('Specification IDs: ' + result.active + ' active, ' + result.retired + ' retired; ' + result.screens + ' screens, ' + result.conditions + ' registered acceptance conditions');
   if (!result.ok) process.exitCode = 1;
 } catch (error) {
   console.error(error.message);
