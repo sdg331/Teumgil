@@ -1,0 +1,18 @@
+{
+  "name": "teumgil",
+  "version": "0.0.0",
+  "private": true,
+  "description": "틈길 개발 하네스: 문서 검증과 의견 초안 출력 평가",
+  "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "verify": "npm run check:docs && npm run check:ids && npm test && npm run eval:fixtures",
+    "check:docs": "node scripts/check-docs.mjs",
+    "check:ids": "node scripts/check-spec-ids.mjs",
+    "test": "node --test",
+    "eval:fixtures": "node scripts/evaluate-opinions.mjs --fixtures",
+    "eval:outputs": "node scripts/evaluate-opinions.mjs --file",
+    "eval:fingerprints": "node scripts/evaluate-opinions.mjs --fingerprints"
+  },
+  "devDependencies": { "ajv": "8.20.0" }
+}

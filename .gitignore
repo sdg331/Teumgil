@@ -1,0 +1,16 @@
+node_modules/
+.harness/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+
+# Locally installed design tools; retain project-owned agent skills.
+.codex/agents/
+.codex/data/
+.codex/skills/
+.agents/skills/*
+!.agents/skills/teumgil-opinion-eval/
+!.agents/skills/teumgil-opinion-flow/

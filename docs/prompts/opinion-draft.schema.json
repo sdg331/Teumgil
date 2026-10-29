@@ -1,0 +1,61 @@
+{
+  "title": "TeumgilOpinionDraft",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["draft", "needs_input", "out_of_scope"]
+    },
+    "title": { "type": ["string", "null"] },
+    "location": { "type": ["string", "null"] },
+    "observed_at": { "type": ["string", "null"] },
+    "situation": { "type": ["string", "null"] },
+    "request": { "type": ["string", "null"] },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["location", "observed_at", "situation", "request"]
+      }
+    },
+    "questions": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "field": {
+            "type": "string",
+            "enum": ["location", "observed_at", "situation", "request"]
+          },
+          "question": { "type": "string" }
+        },
+        "required": ["field", "question"]
+      }
+    },
+    "review_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notice": {
+      "type": "string",
+      "enum": [
+        "사용자 진술을 정리한 초안입니다. 틈길 접수는 공식 민원 접수가 아닙니다. 제출 전 내용을 확인해 주세요."
+      ]
+    }
+  },
+  "required": [
+    "status",
+    "title",
+    "location",
+    "observed_at",
+    "situation",
+    "request",
+    "missing_fields",
+    "questions",
+    "review_notes",
+    "notice"
+  ]
+}
