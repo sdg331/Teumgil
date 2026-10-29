@@ -31,7 +31,7 @@ test('reports broken links, invalid JSON and unclosed fences', (context) => {
 
 test('code samples and dependency folders do not create false document failures', (context) => {
   const root = workspace(context);
-  for (const directory of ['node_modules', '.agents', '.codex']) {
+  for (const directory of ['node_modules', '.agents', '.codex', '.next', 'out']) {
     mkdirSync(join(root, directory));
     writeFileSync(join(root, directory, 'README.md'), '[missing](missing.md)\n```\n');
   }

@@ -1,0 +1,259 @@
+{
+  "reviewedAt": "2026-10-29",
+  "notice": "공개 참고 자료와 틈길의 제안 배치를 구분한다. 캡처는 로컬 연구 자료이며 제품 에셋이 아니다.",
+  "sources": [
+    {
+      "id": "toss-search",
+      "title": "TDS · SearchField",
+      "url": "https://tossmini-docs.toss.im/tds-mobile/components/search-field/",
+      "kind": "공식 컴포넌트 예제",
+      "observed": "입력창과 검색어 삭제, 고정 시 공간 유지",
+      "preferredShot": 0
+    },
+    {
+      "id": "toss-list",
+      "title": "TDS · ListRow",
+      "url": "https://tossmini-docs.toss.im/tds-mobile/components/ListRow/list-row-components/",
+      "kind": "공식 컴포넌트 예제",
+      "observed": "좌측 요소·본문·우측 조작의 분리",
+      "preferredShot": 0
+    },
+    {
+      "id": "toss-field",
+      "title": "TDS · TextField",
+      "url": "https://tossmini-docs.toss.im/tds-mobile/components/TextField/text-field/",
+      "kind": "공식 컴포넌트 예제",
+      "observed": "이름표·입력·도움말의 계층",
+      "preferredShot": 0
+    },
+    {
+      "id": "toss-sheet",
+      "title": "TDS · BottomSheet",
+      "url": "https://tossmini-docs.toss.im/tds-mobile/components/bottom-sheet/",
+      "kind": "공식 컴포넌트 실행 예제",
+      "observed": "현재 맥락 위에서 여는 보조 선택",
+      "preferredShot": 0
+    },
+    {
+      "id": "toss-result",
+      "title": "TDS · Result",
+      "url": "https://tossmini-docs.toss.im/tds-mobile/components/result/",
+      "kind": "공식 컴포넌트 예제 · 캡처는 오류 상태",
+      "observed": "결과 설명과 다음 행동의 집중",
+      "preferredShot": 0
+    },
+    {
+      "id": "gov-check",
+      "title": "GOV.UK · Check answers",
+      "url": "https://design-system.service.gov.uk/patterns/check-answers/default/",
+      "kind": "공식 패턴의 실행 예제",
+      "observed": "항목별 검토·수정 후 명시적 제출",
+      "preferredShot": 0
+    },
+    {
+      "id": "gov-confirm",
+      "title": "GOV.UK · Confirmation",
+      "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/default/",
+      "kind": "공식 패턴의 실행 예제",
+      "observed": "접수 식별자·다음 절차 안내",
+      "preferredShot": 0
+    },
+    {
+      "id": "moj-timeline",
+      "title": "MOJ · Timeline",
+      "url": "https://design-patterns.service.justice.gov.uk/components/timeline/examples/default/",
+      "kind": "공식 패턴의 실행 예제",
+      "observed": "행동·작성자·시각과 상세 내용",
+      "preferredShot": 0
+    },
+    {
+      "id": "linear-triage",
+      "title": "Linear · Triage",
+      "url": "https://linear.app/docs/triage",
+      "kind": "공식 문서에 게시된 제품 이미지",
+      "observed": "접수함의 간결한 행과 식별 맥락",
+      "preferredShot": 0
+    },
+    {
+      "id": "naver-map",
+      "title": "네이버지도 · 공식 앱 소개",
+      "url": "https://apps.apple.com/kr/app/naver-map-navigation/id311867728",
+      "kind": "개발사 게시 App Store 홍보 화면",
+      "observed": "검색·지도·장소 정보의 배치",
+      "preferredShot": 1
+    }
+  ],
+  "screens": [
+    {
+      "id": "S01",
+      "title": "홈",
+      "goal": "시장을 찾고 장보기를 이어간다",
+      "refs": [
+        "toss-search",
+        "toss-list"
+      ],
+      "layout": "시장 검색 → 선택 시장 → 장보기 이어보기 → 보조 안내",
+      "motion": "route · press",
+      "boundary": "로그인 전 탐색 가능. 의견 작성 유도보다 장보기 우선",
+      "states": "검색 없음 / 읽기 실패 / 기존 목록 있음"
+    },
+    {
+      "id": "S02",
+      "title": "시장지도·점포 목록",
+      "goal": "검색 조건을 유지하며 점포를 고른다",
+      "refs": [
+        "naver-map",
+        "toss-search",
+        "toss-sheet"
+      ],
+      "layout": "시장·품목 검색 → 지도/목록 → 선택 점포 패널",
+      "motion": "sheet · filter",
+      "boundary": "지도 미연동이면 목록이 주 경로. 가상 도식 표시",
+      "states": "지도 불가 / 결과 없음 / 선택 점포 / 위치 권한 거부"
+    },
+    {
+      "id": "S03",
+      "title": "점포 상세",
+      "goal": "평소 품목과 정보 근거를 보고 담는다",
+      "refs": [
+        "naver-map",
+        "toss-list"
+      ],
+      "layout": "점포명·위치 → 평소 품목 → 출처·확인일 → 담기",
+      "motion": "press · list",
+      "boundary": "재고·가격·영업 여부를 추정하지 않는다",
+      "states": "정보 미확인 / 중복 담기 / 저장 실패"
+    },
+    {
+      "id": "S04",
+      "title": "장바구니",
+      "goal": "재료를 추가하고 체크하며 가게를 찾는다",
+      "refs": [
+        "toss-list",
+        "toss-field"
+      ],
+      "layout": "재료 입력 → 안정된 순서의 체크 목록 → 품목별 점포 찾기",
+      "motion": "check · list",
+      "boundary": "정규화 중복 방지, 계정별 공통 목록. 주문·결제 아님",
+      "states": "빈 목록 / 연속 변경 / 중복 / 오프라인"
+    },
+    {
+      "id": "S05",
+      "title": "의견 입력",
+      "goal": "위치와 상황을 자기 말로 적는다",
+      "refs": [
+        "toss-field",
+        "toss-sheet"
+      ],
+      "layout": "위치·상황 → 선택 시점·사진 → 직접 작성/초안 정리",
+      "motion": "validation · sheet",
+      "boundary": "사진 선택이며 원문 보존. 비용 호출 전에 입력 검증",
+      "states": "필수 누락 / 첨부 실패 / 임시 입력 복구"
+    },
+    {
+      "id": "S06",
+      "title": "제출 전 검토",
+      "goal": "원문과 정리된 내용을 확인·수정한다",
+      "refs": [
+        "gov-check",
+        "toss-field"
+      ],
+      "layout": "생성 방식 → 원문 → 편집 내용 → 제출 전 안내·제출",
+      "motion": "draft · validation",
+      "boundary": "AI가 접수하지 않는다. unavailable이면 직접 작성 경로",
+      "states": "needs_input / out_of_scope / AI 미설정·실패 / 중복 제출"
+    },
+    {
+      "id": "S07",
+      "title": "접수 완료",
+      "goal": "저장된 접수번호와 다음 행동을 확인한다",
+      "refs": [
+        "gov-confirm",
+        "toss-result"
+      ],
+      "layout": "내부 접수 사실 → 번호·시각 → 내 의견 → 별도 공식 경로",
+      "motion": "receipt",
+      "boundary": "실제 저장 성공만 표시. 공식 신고 완료로 부르지 않는다",
+      "states": "결과 미확인 / 재조회 실패 / 새로고침"
+    },
+    {
+      "id": "S08",
+      "title": "내 의견 목록",
+      "goal": "내가 보낸 의견을 다시 찾는다",
+      "refs": [
+        "toss-list",
+        "linear-triage"
+      ],
+      "layout": "내 의견 제목 → 현재 상태·최근 시각 → 상세",
+      "motion": "filter · route",
+      "boundary": "타인 의견과 내부 요약 미노출, 공개 게시판 아님",
+      "states": "빈 목록 / 로딩 / 실패 / 접근 만료"
+    },
+    {
+      "id": "S09",
+      "title": "내 의견 상세",
+      "goal": "확인 과정과 추가 질문에 답한다",
+      "refs": [
+        "moj-timeline",
+        "gov-check"
+      ],
+      "layout": "현재 상태 → 내 제출 → 시민용 질문·게시 → 처리 이력",
+      "motion": "timeline · validation",
+      "boundary": "시민용 게시와 상인 원문 분리. 질문 답변은 새 기록",
+      "states": "질문 대기 / 답변 실패 / 정정 / 미확인 결과"
+    },
+    {
+      "id": "S10",
+      "title": "운영자 접수함",
+      "goal": "배정된 시장의 의견을 찾아 연다",
+      "refs": [
+        "linear-triage",
+        "toss-list"
+      ],
+      "layout": "시장·상태·ID 검색 → 접수 목록 → 선택 의견",
+      "motion": "filter · route",
+      "boundary": "임의 긴급도·점수·해결률·SLA 추가 금지",
+      "states": "담당 시장 없음 / 조건 없음 / 목록 실패"
+    },
+    {
+      "id": "S11",
+      "title": "운영자 처리 상세",
+      "goal": "질문·최소 전달·결과 게시를 수행한다",
+      "refs": [
+        "linear-triage",
+        "moj-timeline",
+        "gov-check"
+      ],
+      "layout": "원문 맥락 → 현재 작업 → 공개 대상 미리보기 → 이력",
+      "motion": "sheet · timeline · validation",
+      "boundary": "전달·답변·상태·게시 분리. 전이표와 서버 관계 검사",
+      "states": "전달 실패 / 동시 수정 / 게시 미리보기 / 재개·정정"
+    },
+    {
+      "id": "S12",
+      "title": "상인 전달함",
+      "goal": "나에게 전달된 내용을 확인한다",
+      "refs": [
+        "linear-triage",
+        "toss-list"
+      ],
+      "layout": "전달 요약 → 장소·시각 → 답변 여부 → 상세",
+      "motion": "filter · route",
+      "boundary": "상태는 답변 여부 중심. 시민 신상·원문·사진 없음",
+      "states": "전달 없음 / 다른 점포 ID / 연결 회수"
+    },
+    {
+      "id": "S13",
+      "title": "상인 답변",
+      "goal": "입장과 가능한 대안을 남긴다",
+      "refs": [
+        "toss-field",
+        "gov-check"
+      ],
+      "layout": "받은 요약 → 내 입장 → 대안/대안 없음 → 검토·저장",
+      "motion": "validation · press",
+      "boundary": "운영자에게 전달되는 답변임을 설명. 자동 시민 공개 없음",
+      "states": "대안 없음 / 저장 실패 / 답변 정정 / 권한 회수"
+    }
+  ]
+}

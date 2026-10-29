@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793235398573,
+      "tag": "0000_bright_switch",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793243616249,
+      "tag": "0001_amazing_matthew_murdock",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793244518309,
+      "tag": "0002_unusual_venom",
+      "breakpoints": true
+    }
+  ]
+}

@@ -14,3 +14,12 @@ Thumbs.db
 .agents/skills/*
 !.agents/skills/teumgil-opinion-eval/
 !.agents/skills/teumgil-opinion-flow/
+
+# Application build and local database files.
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Third-party reference screenshots: local research only
+/assets/_reference/
